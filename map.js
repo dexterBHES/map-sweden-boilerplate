@@ -22,8 +22,11 @@ d3.json('sverige.topojson', function(data) {
       t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
 
   projection.scale(s).translate(t);
-
-  svg.append('path')
-      .datum(subunits)
+console.log(data)
+  svg.selectAll('.munic')
+      .data(subunits.features)
+    .enter().append('path')
+      .attr('class', function(d) { return 'munic munic--' + d.properties.KNKOD; })
       .attr('d', d3.geo.path().projection(projection));
+
 });
